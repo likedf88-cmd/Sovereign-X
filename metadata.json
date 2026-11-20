@@ -1,0 +1,6 @@
+{
+  "name": "Sovereign X",
+  "description": "Futuristic PlayStation-inspired 3D social lounge, TikTok/Instagram/Snapchat media pulse, Fortnite-style item shop, and real-time GLB skeleton & heat-map rigging studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,631 @@
+{
+  "entities": {
+    "UserPublic": {
+      "title": "UserPublic",
+      "description": "Public profile and loyalty status for a Sovereign X member (no PII).",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "handle": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 32,
+          "pattern": "^[a-zA-Z0-9_.]+$"
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "loyaltyRank": {
+          "type": "string",
+          "enum": ["Squire", "Sentinel", "Vanguard", "Sovereign"]
+        },
+        "loyaltyXp": {
+          "type": "number"
+        },
+        "streakDays": {
+          "type": "number"
+        },
+        "credits": {
+          "type": "number"
+        },
+        "equippedAvatarId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "equippedEmote": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["pc", "mobile", "console"]
+        },
+        "accountStatus": {
+          "type": "string",
+          "enum": ["active", "warned", "suspended"]
+        },
+        "adminNote": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "handle",
+        "loyaltyRank",
+        "loyaltyXp",
+        "streakDays",
+        "credits",
+        "equippedAvatarId",
+        "equippedEmote",
+        "platform",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserPrivate": {
+      "title": "UserPrivate",
+      "description": "Isolated private PII and inventory owned strictly by the user.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "ownedItemIds": {
+          "type": "array"
+        },
+        "lastDailyClaimDay": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "ownedItemIds", "updatedAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Social media reel, photo post, or ephemeral story.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "authorHandle": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 32
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["reel", "photo", "story"]
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "mediaUrl": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "videoPlatform": {
+          "type": "string",
+          "enum": ["youtube", "tiktok", "instagram", "direct", "native"]
+        },
+        "sourceUrl": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "embedUrl": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "presetScene": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "avatarId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "emote": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "likesCount": {
+          "type": "number"
+        },
+        "commentsCount": {
+          "type": "number"
+        },
+        "repostsCount": {
+          "type": "number"
+        },
+        "sharesCount": {
+          "type": "number"
+        },
+        "repostedFromPostId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "repostedFromAuthor": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "authorId",
+        "authorName",
+        "authorHandle",
+        "kind",
+        "caption",
+        "likesCount",
+        "commentsCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "PostLike": {
+      "title": "PostLike",
+      "description": "User like record on a social post.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "postId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "postId", "createdAt"]
+    },
+    "PostComment": {
+      "title": "PostComment",
+      "description": "Comment on a social media post or reel.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "postId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "postId", "authorId", "authorName", "text", "createdAt"]
+    },
+    "ShopItem": {
+      "title": "ShopItem",
+      "description": "Fortnite-style marketplace item (avatar, emote, bundle, aura).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "category": {
+          "type": "string",
+          "enum": ["avatar", "emote", "bundle", "aura"]
+        },
+        "section": {
+          "type": "string",
+          "enum": ["featured", "daily", "royal-vault"]
+        },
+        "rarity": {
+          "type": "string",
+          "enum": ["mythic", "legendary", "epic", "rare", "uncommon"]
+        },
+        "price": {
+          "type": "number"
+        },
+        "imageUrl": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "presetKey": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "riggedModelId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "creatorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "creatorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "category",
+        "section",
+        "rarity",
+        "price",
+        "creatorId",
+        "creatorName",
+        "active",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "RiggedModel": {
+      "title": "RiggedModel",
+      "description": "Admin-rigged 3D skeleton and weight map configuration.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "creatorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sourceType": {
+          "type": "string",
+          "enum": ["procedural-knight", "procedural-vanguard", "glb-custom"]
+        },
+        "modelEndpoint": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "bones": {
+          "type": "array"
+        },
+        "weightConfig": {
+          "type": "object"
+        },
+        "defaultAnimation": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "creatorId",
+        "sourceType",
+        "bones",
+        "weightConfig",
+        "defaultAnimation",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "User-submitted moderation report for posts, comments, lounge messages, or users.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "targetType": {
+          "type": "string",
+          "enum": ["post", "comment", "lounge-message", "user"]
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "targetAuthorId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "targetAuthorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "targetExcerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "reason": {
+          "type": "string",
+          "enum": ["harassment", "spam", "inappropriate", "impersonation", "other"]
+        },
+        "details": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "reporterId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "reporterName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "reviewing", "resolved", "dismissed"]
+        },
+        "adminNotes": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "resolvedBy": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "targetType",
+        "targetId",
+        "targetAuthorName",
+        "targetExcerpt",
+        "reason",
+        "reporterId",
+        "reporterName",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Delegated Sovereign Admin record managed by highest admins.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "grantedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "displayName", "grantedBy", "createdAt"]
+    },
+    "VaultShowcase": {
+      "title": "VaultShowcase",
+      "description": "Global Awaiting Vault Drop showcase metadata editable by Sovereign Admins.",
+      "type": "object",
+      "properties": {
+        "kicker": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "previewAvatarId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "imageUrl": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["kicker", "title", "description", "previewAvatarId", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPublic" },
+      "description": "Public member profile, credits, loyalty rank, account status, and equipped avatar."
+    },
+    "/users/{userId}/private/info": {
+      "schema": { "$ref": "#/entities/UserPrivate" },
+      "description": "Private PII and owned marketplace item IDs."
+    },
+    "/posts/{postId}": {
+      "schema": { "$ref": "#/entities/Post" },
+      "description": "Social media posts, vertical reels, and ephemeral stories."
+    },
+    "/posts/{postId}/likes/{userId}": {
+      "schema": { "$ref": "#/entities/PostLike" },
+      "description": "Per-user likes on a post."
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/PostComment" },
+      "description": "Comments on a post."
+    },
+    "/shopItems/{itemId}": {
+      "schema": { "$ref": "#/entities/ShopItem" },
+      "description": "Fortnite-style Item Shop listings published by admin."
+    },
+    "/riggedModels/{modelId}": {
+      "schema": { "$ref": "#/entities/RiggedModel" },
+      "description": "Admin-created 3D rigged skeletons and heat-map weight configs."
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Moderation reports submitted by users and reviewed by Sovereign Admins."
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Admin role grants managed by Highest Admins."
+    },
+    "/siteSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/VaultShowcase" },
+      "description": "Public-readable, admin-managed showcase configuration documents (e.g. awaitingVault)."
+    }
+  }
+}
